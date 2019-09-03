@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    <meta charset="UTF-8">
+    <title>James & Laura's Wedding</title>
+    <style>
+        .hidden-error-message {
+            display: none;
+        }
+
+        .displayed-hidden-error-message {
+            color: red;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            resize: none;
+        }
+
+         input, select {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        select {
+            font-size: 19px;
+        }
+
+        /*input[type=submit] {*/
+            /*width: 100%;*/
+            /*background-color: #4d4e4f;*/
+            /*color: white;*/
+            /*padding: 14px 20px;*/
+            /*margin: 8px 0;*/
+            /*border: none;*/
+            /*border-radius: 4px;*/
+            /*cursor: pointer;*/
+        /*}*/
+
+        input[type=submit]:hover {
+            background-color: #4d4e4f;
+        }
+
+        form {
+            border-radius: 5px;
+            /*background-color: #f2f2f2;*/
+            margin-left: 150px;
+            margin-right: 150px;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div id="main">
+    <header>
+        <h1 class="title">James & Laura</h1>
+        <nav>
+            <ul id="main-nav" class="nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Wedding</a></li>
+                <li><a class="chosen" href="rsvp.html">RSVP</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="centered">
+        <h3>Please RSVP by January 16th, 2020</h3>
+    </div>
+    <hr/>
+    <form action="https://formspree.io/jhkelly05@gmail.com" method="POST"/>
+    <div id="top-error" class="hidden-error-message">Your form has encountered a problem. Please scroll down to
+        review.
+    </div>
+    <div>
+        <div id="email-error" class="hidden-error-message">Email Address is required.</div>
+        <label class="title">Email Address <span class="required">*</span></label>
+        <input class="field-element" id="email" name="email" type="email" autocomplete="email" spellcheck="false"/>
+    </div>
+
+    <div>
+        <div id="name-error" class="hidden-error-message">Email Address is required.</div>
+        <span>
+        <label class="title">Name <span class="required">*</span></label>
+        <input class="field-element" id="name" name="name" type="text" spellcheck="false"/>
+        </span>
+    </div>
+
+    <div>
+        <div id="attendance-error" class="hidden-error-message">Attendance is required.</div>
+        <label class="title">Are you attending?<span class="required">*</span></label>
+        <select id="attendance" name="attendance">
+            <option value="unanswered"></option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </select>
+    </div>
+
+    <div>
+        <div class="hidden-error-message">Who else is coming with you? is required.</div>
+        <label class="title">Who else is coming with you?<span class="required">*</span></label>
+        <input class="field-element" id="plus-one" name="plus-one" type="text"
+               spellcheck="false"/>
+    </div>
+    <div>
+        <div class="hidden-error-message">Number of children is required.</div>
+        <label class="title">How many children will be attending?<span class="required">*</span></label>
+        <input class="field-element" id="children-number" name="children-number" type="number"
+               min="0"/>
+    </div>
+    <div>
+        <div>
+            <label class="title">Message</label>
+        </div>
+        <textarea class="field-element" id="message" name="message" type="text" spellcheck="true"></textarea>
+    </div>
+    <div id="bottom-error" class="hidden-error-message">Your form has encountered a problem. Please scroll up to
+        review.
+    </div>
+    <input type="submit" name="submit" value="RSVP"/>
+    </form>
+</div>
+</body>
+</html>
