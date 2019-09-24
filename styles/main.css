@@ -29,7 +29,12 @@ ul {
     margin: 0px;
 }
 
-/* TODO: Remove the padding to different  */
+
+.chosen{
+    border-bottom: 1px solid #4d4e4f
+}
+
+
 .centered {
     text-align: center;
     padding-top: 16px;

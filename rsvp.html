@@ -10,7 +10,16 @@
             display: none;
         }
 
-        .displayed-hidden-error-message {
+        .main-error-message {
+            padding: 8px;
+            margin: 0px ;
+            color: red;
+            text-align: center;
+
+            /*display: none;*/
+        }
+
+        .error-message {
             color: red;
         }
 
@@ -20,30 +29,49 @@
             resize: none;
         }
 
-         input, select {
+        .normal {
+            border: 1.5px solid #ccc;
+        }
+
+        select{
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
             display: inline-block;
             border: 1px solid #ccc;
+            /* TODO This breaks the button */
+            height:30px;
+            text-indent: 12px;
             border-radius: 4px;
             box-sizing: border-box;
+            background-color: white;
         }
 
-        select {
-            font-size: 19px;
+        input {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            /*border: 1px solid #ccc;*/
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: white;
         }
 
-        /*input[type=submit] {*/
-            /*width: 100%;*/
-            /*background-color: #4d4e4f;*/
-            /*color: white;*/
-            /*padding: 14px 20px;*/
-            /*margin: 8px 0;*/
-            /*border: none;*/
-            /*border-radius: 4px;*/
-            /*cursor: pointer;*/
+        /*select {*/
+        /*font-size: 19px;*/
         /*}*/
+
+        input[type=submit] {
+            width: 100%;
+            background-color: #4d4e4f;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
         input[type=submit]:hover {
             background-color: #4d4e4f;
@@ -57,6 +85,9 @@
             padding-top: 20px;
         }
     </style>
+    <!-- http://jsfiddle.net/foxdonut/gq5zx661/ -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.2/underscore-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script>
 </head>
 <body>
 <div id="main">
@@ -65,7 +96,7 @@
         <nav>
             <ul id="main-nav" class="nav">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="#">Wedding</a></li>
+                <li><a href="wedding.html">Wedding</a></li>
                 <li><a class="chosen" href="rsvp.html">RSVP</a></li>
             </ul>
         </nav>
@@ -74,57 +105,68 @@
         <h3>Please RSVP by January 16th, 2020</h3>
     </div>
     <hr/>
-    <form action="https://formspree.io/jhkelly05@gmail.com" method="POST"/>
-    <div id="top-error" class="hidden-error-message">Your form has encountered a problem. Please scroll down to
-        review.
-    </div>
-    <div>
-        <div id="email-error" class="hidden-error-message">Email Address is required.</div>
-        <label class="title">Email Address <span class="required">*</span></label>
-        <input class="field-element" id="email" name="email" type="email" autocomplete="email" spellcheck="false"/>
-    </div>
-
-    <div>
-        <div id="name-error" class="hidden-error-message">Email Address is required.</div>
-        <span>
-        <label class="title">Name <span class="required">*</span></label>
-        <input class="field-element" id="name" name="name" type="text" spellcheck="false"/>
-        </span>
-    </div>
-
-    <div>
-        <div id="attendance-error" class="hidden-error-message">Attendance is required.</div>
-        <label class="title">Are you attending?<span class="required">*</span></label>
-        <select id="attendance" name="attendance">
-            <option value="unanswered"></option>
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </select>
-    </div>
-
-    <div>
-        <div class="hidden-error-message">Who else is coming with you? is required.</div>
-        <label class="title">Who else is coming with you?<span class="required">*</span></label>
-        <input class="field-element" id="plus-one" name="plus-one" type="text"
-               spellcheck="false"/>
-    </div>
-    <div>
-        <div class="hidden-error-message">Number of children is required.</div>
-        <label class="title">How many children will be attending?<span class="required">*</span></label>
-        <input class="field-element" id="children-number" name="children-number" type="number"
-               min="0"/>
-    </div>
-    <div>
-        <div>
-            <label class="title">Message</label>
+    <!--<form id="rsvp-form" action="https://formspree.io/jhkelly05@gmail.com" method="POST"/>-->
+    <form id="rsvp" action="/rsvp" method="POST" novalidate>
+        <div class="form-group">
+            <label class="title">Email Address<span class="error-message"></span></label>
+            <input class="normal" id="email" name="email" type="email" placeholder="you@example.com"
+                   autocomplete="email" spellcheck="false"/>
         </div>
-        <textarea class="field-element" id="message" name="message" type="text" spellcheck="true"></textarea>
-    </div>
-    <div id="bottom-error" class="hidden-error-message">Your form has encountered a problem. Please scroll up to
-        review.
-    </div>
-    <input type="submit" name="submit" value="RSVP"/>
+
+        <div class="form-group">
+            <span>
+                <label class="title">Name<span class="error-message"></span></label>
+                <input class="normal" id="name" name="name" type="text" placeholder="Jane Smith"
+                       spellcheck="false"/>
+            </span>
+            <div class="messages"></div>
+        </div>
+
+        <div class="form-group">
+            <label class="title">Are you attending?<span class="error-message"></span></label>
+            <select id="attendance" name="attendance">
+                <option value="unanswered"></option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            <div class="messages"></div>
+        </div>
+
+        <div class="form-group">
+            <label class="title">Who else is coming with you?<span class="error-message"></span></label>
+            <input class="normal" id="plusOne" name="plusOne" placeholder="Jane's Plus One" type="text"
+                   spellcheck="false"/>
+            <div class="messages"></div>
+        </div>
+        <div class="form-group">
+            <label class="title">How many children will be attending?<span class="error-message"></span></label>
+            <!--<select class="normal" id="childrenNumber" name="childrenNumber" type="number" placeholder="None" min="0"/>-->
+            <select id="childrenNumber" name="childrenNumber">
+                <option value="none">None</option>
+                <option value="one">One</option>
+                <option value="two">Two</option>
+                <option value="three">Three</option>
+                <option value="four">Four</option>
+                <option value="five">Five</option>
+            </select>
+        </div>
+        <div>
+            <div>
+                <label class="title">Message</label>
+            </div>
+            <textarea class="normal" id="message" name="message" type="text" spellcheck="true"></textarea>
+        </div>
+
+        <div class="main-error-message">
+            <p class="hidden-error-message">
+                There are problems with the information in the form.
+            </p>
+        </div>
+
+        <input type="submit" value="RSVP"/>
     </form>
 </div>
 </body>
+
+<script src="scripts/rsvp-form-validator.js"></script>
 </html>
