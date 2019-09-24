@@ -112,14 +112,14 @@
     <form id="rsvp-form" action="https://formspree.io/jhkelly05@gmail.com" method="POST"/>
     <!--<form id="rsvp" action="/rsvp" method="POST" novalidate>-->
         <div class="form-group">
-            <label class="title">Email Address<span class="error-message"></span></label>
+            <label class="title">Email Address *<span class="error-message"></span></label>
             <input class="normal" id="email" name="email" type="email" placeholder="you@example.com"
                    autocomplete="email" spellcheck="false"/>
         </div>
 
         <div class="form-group">
             <span>
-                <label class="title">Name<span class="error-message"></span></label>
+                <label class="title">Name *<span class="error-message"></span></label>
                 <input class="normal" id="name" name="name" type="text" placeholder="Jane Smith"
                        spellcheck="false"/>
             </span>
@@ -127,7 +127,7 @@
         </div>
 
         <div class="form-group">
-            <label class="title">Are you attending?<span class="error-message"></span></label>
+            <label class="title">Will you be attending? *<span class="error-message"></span></label>
             <select id="attendance" name="attendance">
                 <option value="unanswered"></option>
                 <option value="yes">Yes</option>
@@ -159,12 +159,6 @@
                 <label class="title">Message</label>
             </div>
             <textarea class="normal" id="message" name="message" type="text" spellcheck="true"></textarea>
-        </div>
-
-        <div class="main-error-message">
-            <p class="hidden-error-message">
-                There are problems with the information in the form.
-            </p>
         </div>
 
         <input type="submit" value="RSVP"/>
