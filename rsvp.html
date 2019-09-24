@@ -29,6 +29,9 @@
             height: 150px;
             margin: 8px 0px;
             resize: none;
+            box-sizing: border-box;         /* For IE and modern versions of Chrome */
+            -moz-box-sizing: border-box;    /* For Firefox                          */
+            -webkit-box-sizing: border-box; /* For Safari                           */
         }
 
         .normal {
@@ -41,7 +44,6 @@
             margin: 8px 0;
             display: inline-block;
             border: 1px solid #ccc;
-            /* TODO This breaks the button */
             height:30px;
             text-indent: 12px;
             border-radius: 4px;
