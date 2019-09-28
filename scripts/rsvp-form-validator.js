@@ -133,4 +133,10 @@
         messages.innerHTML = error;
     }
 
+
+    function showSuccess() {
+        // We made it \:D/
+        document.getElementById("rsvp").submit();
+    }
+
 })();
